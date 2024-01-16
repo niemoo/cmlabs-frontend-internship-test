@@ -1,21 +1,25 @@
+import VideoPlayer from '@/components/VideoPlayer';
 import { getDetailData } from '@/libs/api-libs';
 
 const RecipePage = async ({ params: { id } }) => {
   const detailData = await getDetailData({ id });
 
   return (
-    <main className="p-5 mx-auto max-w-screen-md">
+    <main className="mx-auto max-w-screen-md p-5 mb-20">
       {detailData.meals.map((data) => (
         <section className="flex flex-col gap-10">
-          <h1 className="md:text-5xl text-4xl font-bold">{data.strMeal}</h1>
-          <hr />
+          <div className="flex flex-col gap-5">
+            <h1 className="md:text-5xl text-4xl font-bold">{data.strMeal}</h1>
+            <p>Category : {data.strCategory}</p>
+          </div>
+          <hr className="border-black" />
           <div className="flex justify-center">
             <img src={data.strMealThumb} className="rounded-xl" />
           </div>
-          <div className="flex justify-between">
-            <div>
-              <h3 className="font-semibold text-2xl mb-2">INGREDIENTS</h3>
-              <ul>
+          <div className="md:flex md:justify-between">
+            <div className="md:w-1/2">
+              <h3 className="font-bold text-2xl mb-2">INGREDIENTS</h3>
+              <ul className="flex flex-col gap-2 mt-7">
                 {Array.from(
                   { length: 20 },
                   (_, index) =>
@@ -27,12 +31,24 @@ const RecipePage = async ({ params: { id } }) => {
                 )}
               </ul>
             </div>
+
+            <div className="flex flex-col gap-5 md:w-1/2 md:mt-0 mt-10">
+              <h3 className="font-bold text-2xl mb-2">INSTRUCTION</h3>
+              {data.strInstructions.split('\r\n').map((instruction, index) => (
+                <div>
+                  <p className="font-semibold">STEP {index + 1} </p>
+                  <p key={index}>{instruction}</p>
+                </div>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-col gap-5 mt-10">
-            <h3 className="font-bold text-2xl mb-2">INSTRUCTION</h3>
-            {data.strInstructions.split('\r\n').map((instruction, index) => (
-              <p key={index}>{instruction}</p>
-            ))}
+          <div>
+            <div className="flex justify-between items-center">
+              <hr className="w-1/3 border-b-2 border-black" />
+              <h3 className="font-bold text-2xl">HOW TO COOK</h3>
+              <hr className="w-1/3 border-b-2 border-black" />
+            </div>
+            <VideoPlayer youtubeId={data.strYoutube} />
           </div>
         </section>
       ))}

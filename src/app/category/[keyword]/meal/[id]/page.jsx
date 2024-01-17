@@ -44,9 +44,9 @@ const MealPage = async ({ params: { id } }) => {
             </div>
           </div>
           <div>
-            <div className="flex justify-between items-center">
+            <div className="flex flex-col items-center">
               <hr className="w-1/3 border-b-2 border-black" />
-              <h3 className="font-bold text-2xl">HOW TO COOK</h3>
+              <h3 className="font-bold text-2xl ">HOW TO COOK</h3>
               <hr className="w-1/3 border-b-2 border-black" />
             </div>
             <VideoPlayer youtubeId={data.strYoutube} />

@@ -1,4 +1,5 @@
-import CardList from '@/components/CardList';
+import HomeCardList from '@/components/Card/HomeCardList';
+import TitleHeader from '@/components/TitleHeader';
 import { getAllCategoriesData } from '@/libs/api-libs';
 
 const Home = async () => {
@@ -6,8 +7,9 @@ const Home = async () => {
 
   return (
     <main className="p-5 mx-auto max-w-screen-xl">
+      <TitleHeader title="Category" />
       <section className="flex flex-wrap justify-center gap-5">
-        <CardList datas={allCategoryData} />
+        <HomeCardList datas={allCategoryData} />
       </section>
     </main>
   );

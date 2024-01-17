@@ -1,13 +1,15 @@
+import TitlePathMeal from '@/components/TitlePathMeal';
 import VideoPlayer from '@/components/VideoPlayer';
 import { getDetailData } from '@/libs/api-libs';
 
-const RecipePage = async ({ params: { id } }) => {
+const MealPage = async ({ params: { id } }) => {
   const detailData = await getDetailData({ id });
 
   return (
     <main className="mx-auto max-w-screen-md p-5 mb-20">
       {detailData.meals.map((data) => (
         <section className="flex flex-col gap-10">
+          <TitlePathMeal keyword={data.strCategory} title2="Category" title3={data.strMeal} className3="text-gray-500" />
           <div className="flex flex-col gap-5">
             <h1 className="md:text-5xl text-4xl font-bold">{data.strMeal}</h1>
             <p>Category : {data.strCategory}</p>
@@ -56,4 +58,4 @@ const RecipePage = async ({ params: { id } }) => {
   );
 };
 
-export default RecipePage;
+export default MealPage;
